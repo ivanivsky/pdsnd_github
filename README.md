@@ -19,9 +19,9 @@ The bike share usage patterns includes various stats, including:
 Included in this project is bikeshare.py, which is the Python script written in Python 3.
 
 Not included, are the datasets themselves. The datasets for each of the cities can be found here:
-[Chicago](https://www.divvybikes.com/system-data)
-[New York City](https://www.citibikenyc.com/system-data)
-[Chicago D.C.](https://www.capitalbikeshare.com/system-data)
+- [Chicago](https://www.divvybikes.com/system-data)
+- [New York City](https://www.citibikenyc.com/system-data)
+- [Chicago D.C.](https://www.capitalbikeshare.com/system-data)
 
 ### Credits
 I want to acknowledge a few resources that I leveraged to complete this project.
