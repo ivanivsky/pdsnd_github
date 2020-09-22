@@ -205,6 +205,27 @@ def user_stats(df):
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
+def five_lines(df):
+    i = 0
+    j= 5
+    while True:
+        # Does the user want to receive five lines of data?
+        five_lines = input('\nWould you like to see five lines of raw data? Please enter "Yes" if so, or anything else for "No": ')
+
+        # If the user does, print out five lines based on the indexes i and j
+        if five_lines.lower() == 'yes':
+            print(df.iloc[i:j])
+            i += 5
+            j += 5
+            continue
+        # If they don't want five lines, break from the function
+        elif five_lines.lower() == 'no':
+            break
+        # Require that they specify Yes or No
+        else:
+            print('Enter either "Yes" or "No"')
+
+
 def main():
     while True:
         # Get the filters
@@ -225,27 +246,7 @@ def main():
         # Get the user stats
         user_stats(df)
 
-        # Does the user want the first five lines of data?
-        # I did my best getting this to work, but I'm sure there's a better way
-        # Created a couple of indexes for use in iloc
-        i = 0
-        j= 5
-        while True:
-            # Does the user want to receive five lines of data?
-            five_lines = input('\nWould you like to see five lines of raw data? Please enter "Yes" if so, or anything else for "No": ')
-
-            # If the user does, print out five lines based on the indexes i and j
-            if five_lines.lower() == 'yes':
-                print(df.iloc[i:j])
-                i += 5
-                j += 5
-                continue
-            # If they don't want five lines, break from the function
-            elif five_lines.lower() == 'no':
-                break
-            # Require that they specify Yes or No
-            else:
-                print('Enter either "Yes" or "No"')
+        five_lines(df)
 
         # Does the user want to restart
         restart = input('\nWould you like to restart? Enter "Yes" or "No". ')
