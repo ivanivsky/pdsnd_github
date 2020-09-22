@@ -245,10 +245,10 @@ def main():
                 break
             # Require that they specify Yes or No
             else:
-                print('Enter either Yes or No')
+                print('Enter either "Yes" or "No"')
 
         # Does the user want to restart
-        restart = input('\nWould you like to restart? Enter yes or no. ')
+        restart = input('\nWould you like to restart? Enter "Yes" or "No". ')
         if restart.lower() != 'yes':
             break
 
