@@ -18,7 +18,7 @@ def get_filters():
     print('Hello! Let\'s explore some US bikeshare data!')
 
     # get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
-    city = input('\nPlease enter the city: New York City, Chicago, Washington').lower()
+    city = input('\nPlease enter the city: New York City, Chicago, Washington: ').lower()
     while city not in ('chicago', 'new york city', 'washington'):
         print('You must enter a valid city')
         city = input('\nPlease enter the city: ').lower()
@@ -155,8 +155,9 @@ def trip_duration_stats(df):
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
+"""
 def user_stats_washington(df):
-    """Displays statistics on bikeshare users."""
+    Displays statistics on bikeshare users.
 
     print('\nCalculating User Stats...\n')
     start_time = time.time()
@@ -168,37 +169,62 @@ def user_stats_washington(df):
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
+"""
 
 def user_stats(df):
     """Displays statistics on bikeshare users."""
+    try:
+        print('\nCalculating User Stats...\n')
+        start_time = time.time()
 
-    print('\nCalculating User Stats...\n')
-    start_time = time.time()
+        # Display counts of user types
+        user_types = df['User Type'].value_counts()
 
-    # Display counts of user types
-    user_types = df['User Type'].value_counts()
+        print('\nThe user types are:\n', user_types)
 
-    print('\nThe user types are:\n', user_types)
+        # Display counts of gender
+        gender_count = df['Gender'].value_counts()
 
-    # Display counts of gender
-    gender_count = df['Gender'].value_counts()
+        print('\nThe gender count is:\n', gender_count)
 
-    print('\nThe gender count is:\n', gender_count)
+        # Display youngest birth year
+        birth_year_youngest = df['Birth Year'].max()
 
-    # Display youngest birth year
-    birth_year_youngest = df['Birth Year'].max()
+        print('\nThe younger birth year is:', birth_year_youngest)
 
-    print('\nThe younger birth year is:', birth_year_youngest)
+        # Display oldest year of birth
+        birth_year_oldest = df['Birth Year'].min()
+        print('\nThe oldest birth year is:', birth_year_oldest)
 
-    # Display oldest year of birth
-    birth_year_oldest = df['Birth Year'].min()
-    print('\nThe oldest birth year is:', birth_year_oldest)
+        birth_year_mode = df['Birth Year'].mode()[0]
+        print('\nThe most common birth year is:', birth_year_mode)
 
-    birth_year_mode = df['Birth Year'].mode()[0]
-    print('\nThe most common birth year is:', birth_year_mode)
+    except KeyError:
+        print("No information is available for the Washington dataset regarding gender and year of birth")
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
+
+def five_lines(df):
+    i = 0
+    j= 5
+    while True:
+        # Does the user want to receive five lines of data?
+        five_lines = input('\nWould you like to see five lines of raw data? Please enter "Yes" if so, or anything else for "No": ')
+
+        # If the user does, print out five lines based on the indexes i and j
+        if five_lines.lower() == 'yes':
+            print(df.iloc[i:j])
+            i += 5
+            j += 5
+            continue
+        # If they don't want five lines, break from the function
+        elif five_lines.lower() == 'no':
+            break
+        # Require that they specify Yes or No
+        else:
+            print('Enter either "Yes" or "No"')
+
 
 def main():
     while True:
@@ -218,37 +244,12 @@ def main():
         trip_duration_stats(df)
 
         # Get the user stats
-        # I'm not sure if this is a good or a bad practice, but it seemed easiest to
-        # provide washington with it's own function given the difference in data that's available.
-        if city.lower() != 'washington':
-            user_stats(df)
-        else:
-            user_stats_washington(df)
+        user_stats(df)
 
-        # Does the user want the first five lines of data?
-        # I did my best getting this to work, but I'm sure there's a better way
-        # Created a couple of indexes for use in iloc
-        i = 0
-        j= 5
-        while True:
-            # Does the user want to receive five lines of data?
-            five_lines = input('\nWould you like to see five lines of raw data? Please enter "Yes" if so, or anything else for "No": ')
-
-            # If the user does, print out five lines based on the indexes i and j
-            if five_lines.lower() == 'yes':
-                print(df.iloc[i:j])
-                i += 5
-                j += 5
-                continue
-            # If they don't want five lines, break from the function
-            elif five_lines.lower() == 'no':
-                break
-            # Require that they specify Yes or No
-            else:
-                print('Enter either Yes or No')
+        five_lines(df)
 
         # Does the user want to restart
-        restart = input('\nWould you like to restart? Enter yes or no. ')
+        restart = input('\nWould you like to restart? Enter "Yes" or "No". ')
         if restart.lower() != 'yes':
             break
 
